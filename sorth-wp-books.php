@@ -25,10 +25,22 @@ if(!defined('WPBOOKURL')){
 require_once WPBOOKPATH . 'plugin.php';
 
 /**
- * run on plugin activate and deactivate
+ * run on plugin activate 
  */
-function sorth_books_flush_rewrite(){
+function sorth_books_plugin_activate(){
+    $cpt_obj = \SorthBooks\CPT\cpt::instance();
+    $cpt_obj->register_cpt();
+    $cpt_obj->register_tax();
     flush_rewrite_rules();
 }
-register_activation_hook( __FILE__ , 'sorth_books_flush_rewrite' );
-register_deactivation_hook( __FILE__ , 'sorth_books_flush_rewrite' );
+register_activation_hook( __FILE__ , 'sorth_books_plugin_activate' );
+/**
+ * run on plugin deactivate
+ */
+function sorth_books_plugin_deactivate(){
+    unregister_post_type( 'sorth_books' );
+    unregister_taxonomy('book_author');
+    unregister_taxonomy('genre');
+    flush_rewrite_rules();
+}
+register_deactivation_hook( __FILE__ , 'sorth_books_plugin_deactivate' );
