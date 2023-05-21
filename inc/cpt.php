@@ -19,6 +19,10 @@ class CPT {
         add_action( 'init', array($this, 'register_tax'), 15 );
     }
 
+    /**
+     * register our cpt, since "books" is very common we avoid it, and we use "sorth_books" instead.
+     * but we use "books" as slug for front 
+     */
     function register_cpt(){
         $labels = array(
             'name'                  => __('Books', 'sorth_book'),
@@ -49,6 +53,9 @@ class CPT {
             );
     }
 
+    /**
+     * register our custom taxonomies
+     */
     function register_tax(){ 
 
         // TODO :: use $labels as array

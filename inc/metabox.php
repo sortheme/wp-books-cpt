@@ -17,6 +17,13 @@ class MetaBox {
         add_action( 'save_post', array( $this, 'save_book') );
     }
 
+    /**
+	 * add Meta Box to screen (edit page of sorth_books cpt in admin).
+	 *
+     * this function is callback in "register_post_type" in "SorthBooks\CPT\CPT" class
+     * so we have $post as param
+	 * @param WP_Post $post The post object.
+	 */
     function metabox_cb($post){
         if($post->post_type != 'sorth_books') return;
         add_meta_box(
